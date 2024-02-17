@@ -1,23 +1,18 @@
 const mongoose = require('mongoose') ;
 const mongoUri = 'mongodb+srv://ilyess:ilyess@cluster0.d3nnqvp.mongodb.net/?retryWrites=true&w=majority' ; 
-
-mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  async function connectToMongoDB() {
+    try {
+      await mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+      console.log('Connected to MongoDB');
+    } catch (error) {
+      console.error('Error connecting to MongoDB:', error);
+    }
+  }
   
-  const db = mongoose.connection;
+  connectToMongoDB();
+
+
   
-  db.on('error', (error) => {
-    console.error('MongoDB connection error:', error);
-  });
   
-  db.once('open', () => {
-    console.log('Connected to MongoDB');
-    // Your MongoDB-related code goes here
-  });
-
-
-
-
-
+  
+  

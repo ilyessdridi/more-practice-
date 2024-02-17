@@ -1,87 +1,152 @@
-import React from "react";  
-import {MDBContainer, MDBCol, MDBRow, MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from 'mdb-react-ui-kit';
+import React, { useState } from 'react'; 
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { Container } from "@mui/material";  
+import { useNavigate } from 'react-router-dom';
 
-function login() {   
-    return( 
-     
-        <MDBContainer fluid className="p-3 my-5 h-custom">
+import axios from "axios";
 
-        <MDBRow>
+
+export default function Login() { 
+ const [email, setEmail] = useState("") ; 
+ const [password, setPassword] = useState("") ;  
+ const navigate = useNavigate()
+
+ const handleSubmit = async () => {
+  // e.preventDefault();
+  try {
+      const user = await axios
+    .post('http://localhost:4000/users/login',{email,password})
+    .then((res)=>{ console.log(res.data.id); 
+    localStorage.setItem('id' , res.data.id);
+    navigate('/home');
   
-          <MDBCol col='10' md='6'>
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image" />
-          </MDBCol>
   
-          <MDBCol col='4' md='6'>
+  })
+  //   console.log(user); 
+     // Data received from the server
+  }  catch (error) {
+      alert   (error.response.data.message);
+      
+  }   
+};
+
+
+  return (
+    <Container component="main" maxWidth="lg">
+      <Box
+        sx={{
+          marginTop: 8,
+        }}
+      >
+        <Grid container>
+          <CssBaseline />
+          <Grid
+            item
+            xs={false}
+            sm={4}
+            md={7}
+            sx={{
+              backgroundImage: "url(https://source.unsplash.com/random)",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: (t) =>
+                t.palette.mode === "light"
+                  ? t.palette.grey[50]
+                  : t.palette.grey[900],
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <Box
+              sx={{
+                my: 8,
+                mx: 4,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <Box
+                component="form"
+                noValidate
+/*                 onSubmit={handleSubmit}
+ */                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email" 
+                  autoFocus
+                  onChange={(e)=>{setEmail(e.target.value)}}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password" 
+                  onChange={(e)=>{setPassword(e.target.value)}}
+
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  // type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }} 
+                  onClick={()=>{handleSubmit()}}
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="#" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="#" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
+  );
+}
   
-            {/* <div className="d-flex flex-row align-items-center justify-content-center">
-  
-              <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-  
-              <MDBBtn floating size='md' tag='a' className='me-2'>
-                <MDBIcon fab icon='facebook-f' />
-              </MDBBtn>
-  
-              <MDBBtn floating size='md' tag='a'  className='me-2'>
-                <MDBIcon fab icon='twitter' />
-              </MDBBtn>
-  
-              <MDBBtn floating size='md' tag='a'  className='me-2'>
-                <MDBIcon fab icon='linkedin-in' />
-              </MDBBtn>
-  
-            </div>
-  
-            <div className="divider d-flex align-items-center my-4">
-              <p className="text-center fw-bold mx-3 mb-0">Or</p>
-            </div>
-   */}
-            <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg"/>
-            <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg"/>
-  
-            <div className="d-flex justify-content-between mb-4">
-              <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-              <a href="!#">Forgot password?</a>
-            </div>
-  
-            <div className='text-center text-md-start mt-4 pt-2'>
-              <MDBBtn className="mb-0 px-5" size='lg'>Login</MDBBtn>
-              <p className="small fw-bold mt-2 pt-1 mb-2">Don't have an account? <a href="#!" className="link-danger">Register</a></p>
-            </div>
-  
-          </MDBCol>
-  
-        </MDBRow>
-  
-        {/* <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-  
-          <div className="text-white mb-3 mb-md-0">
-            Copyright © 2020. All rights reserved.
-          </div>
-  
-          <div>
-  
-            <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white' }}>
-              <MDBIcon fab icon='facebook-f' size="md"/>
-            </MDBBtn>
-  
-            <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white'  }}>
-              <MDBIcon fab icon='twitter' size="md"/>
-            </MDBBtn>
-  
-            <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white'  }}>
-              <MDBIcon fab icon='google' size="md"/>
-            </MDBBtn>
-  
-            <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white'  }}>
-              <MDBIcon fab icon='linkedin-in' size="md"/>
-            </MDBBtn>
-  
-          </div>
-  
-        </div> */}
-  
-      </MDBContainer>
-    )
-}   
-export default login ;
+
