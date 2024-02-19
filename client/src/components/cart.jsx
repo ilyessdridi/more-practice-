@@ -48,6 +48,10 @@ useEffect(() =>{
   .then((res)=>{setCartProducts(res.data)})
 },[])
   
+const deleteOneProduct = (id)=>{ 
+  axios.delete(`http://localhost:4000/cart/delete/${id}`) 
+  .then(()=>{console.log("product deleted")})
+}
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -84,18 +88,24 @@ useEffect(() =>{
             {product.price} DT
           </Typography> 
           
-        <CardActions>
-          <DeleteIcon ></DeleteIcon>
-        </CardActions>
+        <Button  
+        
+        onClick={()=>{deleteOneProduct(product._id)}} 
+        // onClick={()=>{console.log(product._id);}}
+        >
+          <DeleteIcon 
+
+             ></DeleteIcon>
+        </Button>
         </CardContent>
       </Card>   
-        <ButtonGroup size="small" aria-label="small outlined button group"> 
-        Quantity
+        {/* <ButtonGroup size="small" aria-label="small outlined button group"> 
         <Button onClick={handleIncrement}>+</Button> 
-        <Button  onClick={handleDecrement}>-</Button>
+        <Typography >Quantity : {counter}</Typography>
+        <Button  onClick={handleDecrement}>-</Button> */}
         {/* {displayCounter && <Button disabled>{this.state.counter}</Button>}
         {displayCounter && <Button onClick={this.handleDecrement}>-</Button>} */}
-      </ButtonGroup>
+      {/* </ButtonGroup> */}
      
       </>
      
@@ -119,7 +129,9 @@ useEffect(() =>{
             Your Shopping Cart
           </Typography> 
           <Divider>Don</Divider>
-            {list(anchor)}
+            {list(anchor)} 
+            <Divider>Don</Divider>
+           <Typography variant = "h5" marginLeft={5}>Total : 155  </Typography>
           </Drawer>
         </React.Fragment>
       ))}

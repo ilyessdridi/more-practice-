@@ -23,7 +23,9 @@ export default function TemporaryDrawer() {
     //  if (text == "Favorite") {Navigate("/favorite")} 
     //   if (text == "Cart") {Navigate("/cart")}  
       if (text == "Profile") {Navigate("/Profile")}   
-      if (text == "Logout") { Navigate("/Login")} 
+      if (text == "Logout") {  
+        localStorage.removeItem("id");
+        Navigate("/Login")} 
     console.log(text);
     }
   const [state, setState] = React.useState({

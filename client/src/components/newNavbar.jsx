@@ -28,7 +28,7 @@ export default function ButtonAppBar() {
         </IconButton> */} 
           <LeftDrower />
           <Typography variant="h6" component="div" sx={{ flexGrow: 20 }} marginLeft={5}>
-            News
+            Don
           </Typography> 
           <Cart />  
           

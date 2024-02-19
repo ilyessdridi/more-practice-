@@ -109,10 +109,10 @@ export default function MultiActionAreaCard() {
                 </CardActionArea> 
                 {/* <FavoriteBorderIcon /> */} 
                 <CardActions disableSpacing >
-                <IconButton aria-label="add to favorites" color="error" >
+                {/* <IconButton aria-label="add to favorites" color="error" >
           <FavoriteIcon />
-        </IconButton> 
-        <IconButton aria-label="add to shopping cart" color='primary' onClick={()=> {addToCart(product)}}> 
+        </IconButton>  */}
+        <IconButton  aria-label="add to shopping cart" color='primary' onClick={()=> {addToCart(product)}} > 
         <AddShoppingCartIcon /> 
         </IconButton>
                 </CardActions>

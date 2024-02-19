@@ -2,16 +2,18 @@ const cart = require("./cartSchema")
 
 
 async function getAll(req, res) {
-    const products = await cart.find({}).populate({ path: "_id", select: "name" });
-    res.send(products);
+    const products = await cart.find({})
+    res.json(products);
   } 
 
 
  const deleteProduct = (req , res) => {  
     
     cart
-      .deleteOne({id : req.params.id}) 
-      console.log("Product deleted !!");
+      .deleteOne({_id : req.params.id})  
+      .then(()=>  console.log("Product deleted !!")) 
+      .catch((err)=> res.send(err));
+      
  }   
 
  const addProduct = (req , res) => {  
